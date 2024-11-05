@@ -1,0 +1,306 @@
+#!/usr/bin/env sh
+
+# homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+## If not running interactively, don't do anything
+case $- in
+*i*) ;;
+*) return ;;
+esac
+
+######### Personal Configs ########
+
+## aliases
+
+alias aria="aria2c -x 16"
+alias svim='sudo nvim'
+alias vim='nvim'
+alias afind='ack -il'
+alias cwd='printf "%s\n" "${PWD##*/}"'
+alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias myip="curl icanhazip.com; echo" # curl ifconfig.me
+alias rrepl="evcxr"
+alias tls="tmux ls"
+alias txt="tmux attach -t"
+alias txs="tmux new-session -A -s local"
+alias wg="_ wg && echo -n \"  public ip: \" ;curl icanhazip.com"
+alias wg-up="wg-quick up wg0"
+alias wg-down="wg-quick down wg0"
+alias md="mkdir -p"
+alias rd="rmdir -p"
+alias pj='npx projen'
+alias rf="rm -rf"
+alias _="sudo "
+alias py=python
+alias scala-new="sbt new scala/hello-world.g8"
+alias brew-it="brew upgrade --greedy-latest && brew update --auto-update && brew cleanup"
+# alias genpass="dd if=/dev/urandom bs=1 count=32 2>/dev/null | base64 | rev | cut -b 2-18 | rev"
+alias genpass="date +%s | sha3sum | base64 | head -c 16 ; echo"
+alias netc="et netc"
+alias etdev="et mgaber@cosdev"
+# alias cdk="/Users/mgaber/.nvm/versions/node/v18.12.1/bin/node cdk"
+alias cddep='cdk deploy --require-approval never'
+alias cddes='cdk destroy --require-approval never'
+alias cddf='cdk diff'
+alias cdkp='cdk --profile personal '
+alias cdsyn='cdk synth'
+# alias rbmail="echo mohammed-mahmoud.gaber-external@raiffeisendigital.com"
+# alias startdev='dev-control.py --start'
+# alias stopdev='dev-control.py --stop'
+alias spark-submit="JAVA_HOME=/opt/homebrew/opt/openjdk@11 spark-submit "
+alias spark-test="JAVA_HOME=/opt/homebrew/opt/openjdk@11 pytest"
+alias spark-flake="JAVA_HOME=/opt/homebrew/opt/openjdk@11 spark-submit --packages net.snowflake:snowflake-jdbc:3.13.23,net.snowflake:spark-snowflake_2.12:2.11.0-spark_3.3 "
+
+# rusting my workflow
+alias ls='exa'
+alias ll='exa -alF '
+alias lr='exa -alFR '
+alias la='exa -al'
+alias l='exa -l'
+alias lt='exa -lT'
+alias rp='realpath'
+alias du='dust'
+alias etnc="et netc"
+alias c=clear
+alias jbuild='mvn clean package && java -jar target/*.jar'
+# alias ps='procs'
+# fd
+# grex
+# bandwhich
+# zellij
+
+### zoxide - https://github.com/ajeetdsouza/zoxide#introduction
+eval "$(zoxide init bash --cmd j)"
+
+cdm(){
+  cd "$1"
+  tmux-rename
+}
+
+zgo(){
+
+  if [ -z "$1" ]
+  then
+    j ~
+  else
+    j "$1"
+  fi
+
+  tmux-rename
+}
+## up function
+zu() {
+  cd "$(printf "%0.s../" $(seq 1 $1))" || return
+  tmux-rename
+}
+
+zb(){
+  j -
+  tmux-rename
+}
+
+zq(){
+  zoxide query -l "$1"
+  tmux-rename
+}
+
+zi(){
+  zoxide query -i "$1"
+  tmux-rename
+}
+za(){
+  zoxide add "$1"
+  tmux-rename
+}
+zr(){
+  zoxide remove "$1"
+  tmux-rename
+}
+
+alias cd=cdm
+alias z=zgo
+alias d=zq
+
+## zoxide examples
+## z foo       # cd to highest ranked directory matching foo
+## z foo bar   # cd to highest ranked directory matching foo and bar
+## z foo/      # can also cd into actual directories
+## zi foo      # cd with interactive selection using fzf
+## zq foo      # echo the best match, don't cd
+## za /foo     # add /foo to the database
+## zr /foo     # remove /foo from the database
+
+
+
+### Alacritty theme switcher
+# LIGHT_COLOR='base16-equilibrium-light-256.yml'
+# DARK_COLOR='base16-humanoid-dark-256.yml'
+# # DARK_COLOR='base16-gruvbox-dark-soft-256.yml'
+# # DARK_COLOR='base16-dracula-256.yml'
+# # DARK_COLOR='base16-espresso-256.yml'
+#
+# termlight() {
+#   LIGHT_COLOR='base16-equilibrium-light-256.yml'
+#   DARK_COLOR='base16-humanoid-dark-256.yml'
+#   alacritty-colorscheme apply $LIGHT_COLOR
+#   export TERMLIGHT="light"
+# }
+# termdark() {
+#   LIGHT_COLOR='base16-equilibrium-light-256.yml'
+#   DARK_COLOR='base16-humanoid-dark-256.yml'
+#   alacritty-colorscheme apply $DARK_COLOR
+#   export TERMLIGHT="dark"
+# }
+darktoggle() {
+  osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode' & >/dev/null
+  switch-theme
+}
+
+macid() {
+    return osascript -e 'id of app "$1"'
+}
+
+# # Switch to Solarized Dark if we are currently in dark mode
+# if [[ "$(uname -s)" == "Darwin" ]]; then
+#   val=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
+#   if [[ $val == "Dark" ]]; then
+#     termdark
+#     export TERMLIGHT="dark"
+#   else
+#    termlight
+#    export TERMLIGHT="light"
+#   fi
+# fi
+
+mdgo () {
+mkdir -p "$1"
+cd "$1"
+}
+
+# NVM Env
+nvm use --lts >> /dev/null
+
+#auto completer for aws
+complete -C aws_completer aws #vim sudo _
+
+## case insensitive completion
+bind "set completion-ignore-case on"
+
+## bash autocomplete & cycle through
+bind 'set show-all-if-ambiguous on'
+#bind 'TAB:menu-complete'
+
+# _____------------__________
+
+### bash history - https://askubuntu.com/questions/339546/how-do-i-see-the-history-of-the-commands-i-have-run-in-tmux
+## avoid duplicates..
+export HISTCONTROL=ignoredups:erasedups;
+export HISTIGNORE=”ls:cd:exit”
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+## append history entries + discard null & case insensitive..
+shopt -s histappend nullglob nocaseglob
+## After each command, save and reload history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# search history - Up arrow
+bind '"\e[A": history-search-backward'
+# search history - Down arrow
+bind '"\e[B": history-search-forward'
+# search history - Right arrow
+bind '"\e[1;3C":forward-word'
+# search history - Left arrow
+bind '"\e[1;3D":backward-word'
+# jump to end
+bind '"\C-e": end-of-line'
+# jump to start
+bind '"\C-a": beginning-of-line'
+
+
+### Tmux - if exists
+if command -v tmux >/dev/null 2>&1; then
+  # if not inside a tmux session, and if no session is started, start a new session
+  [ -z "${TMUX}" ] && (tmux attach >/dev/null 2>&1 || tmux)
+fi
+
+# ## Tmux - auto rename reset
+# #if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux: server" ]; then
+# if tmux has-session; then
+#   tmux set-window-option automatic-rename "on" 1>/dev/null
+# fi
+
+# Tmux rename on remote connections
+ssh() {
+  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux: server" ]; then
+    tmux rename-window "$(echo ssh@$* | cut -d . -f 1)"
+    command ssh "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    command ssh "$@"
+  fi
+}
+et() {
+  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux: server" ]; then
+    tmux rename-window "$(echo et@$* | cut -d . -f 1)"
+    command et "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    command et "$@"
+  fi
+}
+mosh() {
+  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux: server" ]; then
+    tmux rename-window "$(echo mosh@$* | cut -d . -f 1)"
+    command mosh "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    command mosh "$@"
+  fi
+}
+
+###-begin-projen-completions-###
+#
+# yargs command completion script
+#
+# Installation: /opt/homebrew/bin/projen completion >> ~/.bashrc
+#    or /opt/homebrew/bin/projen completion >> ~/.bash_profile on OSX.
+#
+_yargs_completions()
+{
+    local cur_word args type_list
+
+    cur_word="${COMP_WORDS[COMP_CWORD]}"
+    args=("${COMP_WORDS[@]}")
+
+    # ask yargs to generate completions.
+    type_list=$(/opt/homebrew/bin/projen --get-yargs-completions "${args[@]}")
+
+    COMPREPLY=( $(compgen -W "${type_list}" -- ${cur_word}) )
+
+    # if no match was found, fall back to filename completion
+    if [ ${#COMPREPLY[@]} -eq 0 ]; then
+      COMPREPLY=()
+    fi
+
+    return 0
+}
+
+complete -o default -F _yargs_completions projen
+###-end-projen-completions-###
+
+# added by travis gem
+[ ! -s $HOME/.travis/travis.sh ] || source $HOME/.travis/travis.sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# rust
+. "$HOME/.cargo/env"
+
+# >> Starship
+eval "$(starship init bash)"
+# <<
+
+## Random fortune cookie
+fortune
+

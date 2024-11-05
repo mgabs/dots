@@ -7,7 +7,7 @@ M.json = require("core.config.lsp_settings.jsonls")
 M.tex = require("core.config.lsp_settings.tex")
 M.yaml = require("core.config.lsp_settings.yaml")
 M.ltex = require("core.config.lsp_settings.ltex")
-M.python = require("core.config.lsp_settings.python")
+M.python = require("core.config.lsp_settings.pyls")
 M.redhat = require("core.config.lsp_settings.redhat")
 
 M.configure_lsp = function(lsp_server, caps, settings)

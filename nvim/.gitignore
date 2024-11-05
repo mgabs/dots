@@ -1,0 +1,4 @@
+plugin/
+.envrc
+spell/
+.luarc.json

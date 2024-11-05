@@ -1,0 +1,13 @@
+pane	IDE1	1	1	:*	1	:/Users/mmetawea/.config/nvim/plugins/fzf-preview.vim	:/Users/mmetawea	1	bash	:
+pane	IDE1	2	0	:-	1	:/Users/mmetawea	:/Users/mmetawea	1	bash	:
+pane	IDE2	1	1	:##*	1	:/Users/mmetawea	:/Users/mmetawea	1	bash	:
+pane	IDE2	2	0	:##-	1	:/Users/mmetawea	:/Users/mmetawea	1	bash	:
+pane	IDE3	1	0	:-	1	:/Users/mmetawea	:/Users/mmetawea	1	bash	:
+pane	IDE3	2	1	:*	1	Mohammeds-MacBook-Pro.local	:/Users/mmetawea/.config	1	bash	:
+window	IDE1	1	:mmetawea	1	:*	cb1f,95x58,0,0,2	on
+window	IDE1	2	:mmetawea	0	:-	cb20,95x58,0,0,3	on
+window	IDE2	1	:mmetawea	1	:##*	cb21,95x58,0,0,4	on
+window	IDE2	2	:mmetawea	0	:##-	cb22,95x58,0,0,5	on
+window	IDE3	1	:mmetawea	0	:-	cb23,95x58,0,0,6	on
+window	IDE3	2	:.config	1	:*	cb24,95x58,0,0,7	on
+state	IDE3	IDE1

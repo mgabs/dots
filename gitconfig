@@ -1,0 +1,86 @@
+[user]
+  email = gaberm@gmail.com
+  name = Mohammed Gaber
+[color]
+  ui = true
+[fetch]
+  prune = true
+[diff]
+  colorMoved = zebra
+[pull]
+  rebase = true
+[push]
+  autoSetupRemote = true
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[alias]
+  aa = add --all
+  b = branch -v
+  bD = branch -D
+  bd = branch -d
+  br = branch
+  bl = branch -l
+  ch = checkout
+  cc = commit -m
+  cm = commit -am
+  ca = commit -a --amend
+  clr = rm -r --cached
+  cp = cherry-pick -x
+  d = diff -w
+  dc = diff --cached
+  df = diff
+  ft = fetch
+  ignore = update-index --assume-unchanged
+  ignored = !git ls-files -v | grep "^[[:lower:]]"
+  lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%C(bold white)%d%Creset'
+  nb = checkout -b
+  oups = commit --amend --no-edit
+  p = pull
+  pu = push
+  puf = push --force
+  pushfl = push --force-with-lease
+  r = remote -v
+  rh = reset --hard
+  st = status -sb
+  sts = status
+  sw = switch
+  t = tag -l
+  uncommit = reset --soft HEAD^
+  unignore = update-index --no-assume-unchanged
+  unstage = reset HEAD
+[core]
+  editor = nvim
+  pager = less -Xe
+  excludesfile = ~/.config/git/ignore
+; [commit]
+;   template = /home/mgaber/.config/git/gitmessage
+
+[includeIf "gitdir:~/Workbench/cos"]
+  path = ~/Workbench/cos/.gitconfig
+[init]
+  defaultBranch = main
+[safe]
+  directory = *
+  directory = /
+  directory = /Users/mgaber/Workbench/cos/ds-project
+  directory = /Users/mgaber/Workbench/cos
+  directory = /Users/mgaber/Workbench
+  directory = /Users/mgaber
+  directory = /Users
+  directory = *
+  directory = /
+  directory = /Users/mgaber/Workbench/cos/ds-project
+  directory = /Users/mgaber/Workbench/cos
+  directory = /Users/mgaber/Workbench
+  directory = /Users/mgaber
+  directory = /Users
+  directory = *
+  directory = /
+  directory = /Users/mgaber/Workbench/cos/ds-project
+  directory = /Users/mgaber/Workbench/cos
+  directory = /Users/mgaber/Workbench
+  directory = /Users/mgaber
+  directory = /Users

@@ -1,4 +1,3 @@
-#!/usr/bin/env lua
 -- https://microsoft.github.io/pyright/#/settings
 
 -- from
